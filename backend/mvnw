@@ -1,0 +1,25 @@
+#!/bin/sh
+
+# -----------------------------------------------------------------------------
+# Apache Maven Wrapper startup script.
+# Simplified wrapper script for Linux/macOS.
+# -----------------------------------------------------------------------------
+BASE_DIR=$(cd "$(dirname "$0")"; pwd -P)
+WRAPPER_JAR="$BASE_DIR/.mvn/wrapper/maven-wrapper.jar"
+WRAPPER_PROPERTIES="$BASE_DIR/.mvn/wrapper/maven-wrapper.properties"
+JAVA_EXE="java"
+
+if [ ! -f "$WRAPPER_JAR" ]; then
+  echo "Downloading Maven Wrapper..."
+  MVNW_REPOURL=$(grep '^wrapperUrl=' "$WRAPPER_PROPERTIES" | cut -d'=' -f2-)
+  if command -v curl >/dev/null 2>&1; then
+    curl -fsSL "$MVNW_REPOURL" -o "$WRAPPER_JAR"
+  elif command -v wget >/dev/null 2>&1; then
+    wget -q "$MVNW_REPOURL" -O "$WRAPPER_JAR"
+  else
+    echo "curl or wget is required to download Maven Wrapper."
+    exit 1
+  fi
+fi
+
+exec "$JAVA_EXE" -classpath "$WRAPPER_JAR" org.apache.maven.wrapper.MavenWrapperMain "$@"
