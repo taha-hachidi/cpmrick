@@ -14,7 +14,7 @@ public class BookingService {
     }
 
     public ConsultationBooking save(ConsultationBookingDto dto) {
-        if (bookingRepository.existsByPreferredDateAndPreferredTime(dto.getPreferredDate(), dto.getPreferredTime())) {
+        if (bookingRepository.countExistingSlot(dto.getPreferredDate(), dto.getPreferredTime()) > 0) {
             throw new ApiException("This time slot is already booked.", HttpStatus.CONFLICT);
         }
 
@@ -27,6 +27,7 @@ public class BookingService {
         booking.setPreferredDate(dto.getPreferredDate());
         booking.setPreferredTime(dto.getPreferredTime());
         booking.setNotes(dto.getNotes());
+
         return bookingRepository.save(booking);
     }
 }

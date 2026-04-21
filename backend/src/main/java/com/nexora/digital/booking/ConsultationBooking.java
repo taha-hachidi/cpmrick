@@ -31,10 +31,10 @@ public class ConsultationBooking {
     @Column(nullable = false)
     private String consultationType;
 
-    @Column(nullable = false)
+    @Column(name = "preferred_date", nullable = false, columnDefinition = "date")
     private LocalDate preferredDate;
 
-    @Column(nullable = false)
+    @Column(name = "preferred_time", nullable = false, columnDefinition = "time")
     private LocalTime preferredTime;
 
     @Column(columnDefinition = "TEXT")
